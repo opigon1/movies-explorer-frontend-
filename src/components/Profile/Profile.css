@@ -1,0 +1,122 @@
+.profile-page {
+  max-width: 410px;
+  width: 100%;
+  margin: 74px auto 0;
+  padding: 0 20px;
+}
+
+.profile-page__title {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-align: center;
+  margin-bottom: 123px;
+}
+
+.profile-page__name-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 16px;
+  margin-bottom: 17px;
+}
+
+.profile-page__email-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 220px;
+}
+
+.profile-page__name {
+  margin: 0;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.profile-page__username {
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+
+.profile-page__email {
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+}
+
+.profile-page__user-email {
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+
+.profile-page__edit-btn {
+  display: block;
+  margin: auto;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 12px;
+}
+
+.profile-page__exit-btn {
+  display: block;
+  margin: auto;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: #ee3465;
+  text-decoration: none;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .profile-page {
+    max-width: 410px;
+    width: 100%;
+    margin: 234px auto 0;
+  }
+
+  .profile-page__title {
+    margin-bottom: 95px;
+  }
+
+  .profile-page__email-section {
+    margin-bottom: 207px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .profile-page {
+    max-width: 260px;
+    margin-top: 67px;
+  }
+
+  .profile-page__title {
+    margin-bottom: 80px;
+  }
+
+  .profile-page__email-section {
+    margin-bottom: 379px;
+  }
+}
