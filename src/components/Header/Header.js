@@ -6,7 +6,7 @@ function Header({ locarion, children }) {
     <header className={`header header_` + locarion}>
       <div className='header__content'>
         <Link to='/'>
-          <img src={logo} className='header__logo' alt='Логотип'></img>
+          <img src={logo} className='header__logo' alt='Логотип' />
         </Link>
         {children}
       </div>

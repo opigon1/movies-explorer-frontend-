@@ -1,4 +1,4 @@
-import myFoto from '../../images/me-foto.jpg';
+import myImg from '../../images/me-foto.jpg';
 
 function AboutMe() {
   return (
@@ -26,7 +26,7 @@ function AboutMe() {
           </a>
         </div>
         <div className='about-me__info-image'>
-          <img className='about-me__foto' src={myFoto} alt='Моё фото' />
+          <img className='about-me__img' src={myImg} alt='Моё фото' />
         </div>
       </div>
     </section>

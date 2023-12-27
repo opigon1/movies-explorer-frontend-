@@ -64,6 +64,11 @@
   cursor: pointer;
   padding: 13px 0;
   width: 100%;
+  transition: opacity linear 0.2s;
+}
+
+.login__submit:hover {
+  opacity: 0.8;
 }
 
 .login__text {

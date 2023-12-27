@@ -12,15 +12,12 @@ function SearchForm() {
             id='search'
             name='search'
             placeholder='Фильм'
+            required
           />
         </label>
 
-        <button className='search__button' type='button'>
-          <img
-            className='search__img'
-            src={searchBtn}
-            alt='Кнопка поиска'
-          ></img>
+        <button className='search__button' type='submit'>
+          <img className='search__img' src={searchBtn} alt='Кнопка поиска' />
         </button>
       </div>
       <FilterCheckbox />

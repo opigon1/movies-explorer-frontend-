@@ -23,18 +23,18 @@ function AboutProject() {
         </li>
       </ul>
       <div className='about__progress'>
-        <span className='about__progress-backend'>
+        <div className='about__progress-backend'>
           <p className='about__progress-time about__progress-time_type_backend'>
             1 неделя
           </p>
           <p className='about__progress-name'>Back-end</p>
-        </span>
-        <span className='about__progress-frontend'>
+        </div>
+        <div className='about__progress-frontend'>
           <p className='about__progress-time about__progress-time_type_frontend'>
             4 недели
           </p>
           <p className='about__progress-name'>Front-end</p>
-        </span>
+        </div>
       </div>
     </section>
   );

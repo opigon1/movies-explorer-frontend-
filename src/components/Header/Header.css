@@ -1,4 +1,5 @@
-.header_type_lending {
+.header {
+  background-color: #fff;
   padding: 0 10px;
 }
 
@@ -9,10 +10,6 @@
 .header_locarion_lending {
   background-color: #465dff;
   padding: 0 10px;
-}
-
-.header_locarion_movies {
-  background-color: #fff;
 }
 
 .header__logo {
@@ -84,7 +81,7 @@
 
 @media screen and (max-width: 450px) {
   .header__content {
-    max-width: 290px;
+    max-width: 450px;
   }
 
   .header__list-link {
