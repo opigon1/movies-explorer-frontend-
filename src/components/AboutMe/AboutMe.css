@@ -1,0 +1,173 @@
+#about-me {
+  max-width: 1140px;
+  width: 100%;
+  margin: 110px auto 100px;
+}
+
+.about-me__title {
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.88px;
+  margin: 0 0 66px;
+  padding-bottom: 23px;
+  border-bottom: 1px solid black;
+}
+.about-me__name {
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 116%;
+  letter-spacing: -2px;
+  margin: 0;
+}
+
+.about-me__job {
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 111.111%;
+  margin: 0;
+  padding-top: 18px;
+}
+
+.about-me__text {
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 157.143%;
+  margin: 0;
+  padding-top: 26px;
+}
+
+.about-me__link {
+  display: block;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  color: black;
+  margin-top: auto;
+  transition: opacity linear 0.2s;
+}
+
+.about-me__link:hover {
+  opacity: 0.7;
+}
+
+.about-me__img {
+  width: 270px;
+  height: 327px;
+  border-radius: 10px;
+}
+
+.about-me__info {
+  display: flex;
+  column-gap: 50px;
+  justify-content: space-between;
+}
+
+.about-me__info-description {
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1140px) {
+  #about-me {
+    max-width: calc(100% - 20px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #about-me {
+    margin: 91px auto 78px;
+    max-width: calc(100% - 100px);
+  }
+
+  .about-me__name {
+    font-size: 40px;
+  }
+
+  .about-me__job {
+    font-size: 12px;
+    padding-top: 13px;
+  }
+
+  .about-me__text {
+    font-size: 12px;
+    padding-top: 21px;
+  }
+
+  .about-me__img {
+    width: 255px;
+    height: 310px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .about-me__info {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+
+  .about-me__img {
+    object-fit: cover;
+  }
+
+  .about-me__info-image {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  #about-me {
+    max-width: calc(100% - 28px);
+    margin-top: 52px;
+    margin-bottom: 71px;
+  }
+
+  .about-me__title {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    padding-bottom: 28px;
+  }
+
+  .about-me__img {
+    width: 292px;
+    height: 352px;
+  }
+
+  .about-me__name {
+    font-size: 30px;
+    letter-spacing: -1.2px;
+  }
+
+  .about-me__info {
+    row-gap: 36px;
+  }
+
+  .about-me__job {
+    font-size: 11px;
+    line-height: 16px;
+    padding-top: 19px;
+  }
+
+  .about-me__text {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-me__link {
+    padding-top: 25px;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,99 @@
+.header {
+  background-color: #fff;
+  padding: 0 10px;
+}
+
+.header__list-item_section_movies {
+  color: black;
+}
+
+.header_locarion_lending {
+  background-color: #465dff;
+  padding: 0 10px;
+}
+
+.header__logo {
+  cursor: pointer;
+}
+
+.header__content {
+  display: grid;
+  grid-template-columns: 38px 1fr 100px;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1140px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 18px 0;
+}
+
+.header__account {
+  background-color: #fff;
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  border-radius: 20px;
+  padding: 8px 20px;
+  transition: opacity linear 0.2s;
+}
+
+.header__account_location_movies {
+  background-color: #f9f9f9;
+}
+
+.header__account:hover {
+  opacity: 0.8;
+}
+
+.header__burger {
+  display: none;
+  padding: 0;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  background-image: url(../../images/burger_light.svg);
+  transition: all linear 0.2s;
+}
+
+.header__burger_type_dark {
+  background-image: url(../../images/burger_dark.svg);
+}
+
+@media screen and (max-width: 768px) {
+  .header__content {
+    max-width: 706px;
+  }
+
+  .header__burger {
+    display: flex;
+    align-self: center;
+    justify-self: end;
+  }
+
+  .header__account {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .header__content {
+    max-width: 450px;
+  }
+
+  .header__list-link {
+    font-size: 10px;
+  }
+
+  .header__list {
+    column-gap: 15px;
+  }
+
+  .header__burger_type_dark {
+    width: 30px;
+    background-position: right center;
+  }
+}

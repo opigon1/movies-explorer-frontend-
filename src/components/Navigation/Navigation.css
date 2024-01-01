@@ -1,0 +1,74 @@
+.nav__list {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  column-gap: 16px;
+  margin: 0 0 0 65px;
+  padding: 0;
+}
+
+.nav__list-item {
+  display: flex;
+  align-items: center;
+  transition: opacity linear 0.2s;
+  color: #fff;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 138.462% */
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.nav__list-item_active {
+  color: #000;
+  font-weight: 500;
+}
+
+.nav__list_visible {
+  display: flex;
+}
+
+.nav__list-link {
+  text-decoration: none;
+  color: unset;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 133%;
+}
+
+.nav__list-item:hover {
+  opacity: 0.7;
+}
+
+.nav__list-item_location_movies {
+  color: black;
+}
+
+.nav__list-item_type_signup {
+  color: #fff;
+}
+
+.nav__list-item_type_signin {
+  color: black;
+  background-color: #2be080;
+  border-radius: 3px;
+  padding: 8px 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .nav__list {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .nav__list {
+    column-gap: 15px;
+  }
+
+  .nav__list-item_type_signin {
+    padding: 5px 12px;
+  }
+}
