@@ -27,7 +27,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 158px;
+  margin-bottom: 7px;
 }
 
 .login__input {
@@ -60,11 +60,19 @@
   background-color: #ff6838;
   color: #fff;
   border: none;
+  font-size: 14px;
   border-radius: 3px;
   cursor: pointer;
   padding: 13px 0;
   width: 100%;
   transition: opacity linear 0.2s;
+  margin-top: 69px;
+}
+
+.login__submit:disabled {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
+  pointer-events: none;
 }
 
 .login__submit:hover {
@@ -124,13 +132,14 @@
 
   .login__form {
     max-width: 260px;
-    margin-bottom: 248px;
+    margin-bottom: 0;
   }
 
   .login__submit {
     max-width: 260px;
     font-size: 12px;
     padding: 15px 0;
+    margin-top: 160px;
   }
 
   .login__text {

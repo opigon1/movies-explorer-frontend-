@@ -5,17 +5,11 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
 
-function SavedMovies() {
+function SavedMovies({ isLogged }) {
   return (
     <>
-      <Header locarion={'location_movies'}>
-        <Navigation location={'location_movies'} />
-        <Link
-          className='header__account header__account_location_movies'
-          to='/profile'
-        >
-          Аккаунт
-        </Link>
+      <Header locarion={'location_movies'} isLogged={isLogged}>
+        <Navigation location={'location_movies'} isLogged={isLogged} />
         <button
           className='header__burger header__burger_type_dark'
           type='button'

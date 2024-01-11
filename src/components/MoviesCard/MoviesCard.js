@@ -8,7 +8,7 @@ function MoviesCard() {
 
   return (
     <>
-      <li className='movie-card'>
+      {/* <li className='movie-card'>
         <img className='movie-card__img' src={movieImg} alt='Обложка фильма' />
         <div className='movie-card__wrapper'>
           <h2 className='movie-card__title'>33 слова о дизайне</h2>
@@ -87,7 +87,7 @@ function MoviesCard() {
           )}
         </div>
         <span className='movie-card__duration'>1ч42м</span>
-      </li>
+      </li> */}
     </>
   );
 }

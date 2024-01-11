@@ -1,6 +1,9 @@
 .footer {
   background-color: #fafafa;
   padding: 79px 10px 20px;
+  display: flex;
+  flex: 0 0;
+  flex-direction: column;
 }
 
 .footer__title {

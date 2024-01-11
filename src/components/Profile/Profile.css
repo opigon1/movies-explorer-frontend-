@@ -39,11 +39,21 @@
 }
 
 .profile-page__username {
+  width: 80%;
   font-size: 11px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   margin: 0;
+  background-color: transparent;
+  border: none;
+  text-align: right;
+  color: black;
+}
+
+.profile-page__username:focus {
+  outline: 2px solid #3456f3;
+  border-radius: 3px;
 }
 
 .profile-page__email {
@@ -55,15 +65,34 @@
 }
 
 .profile-page__user-email {
+  width: 80%;
   font-size: 11px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   margin: 0;
+  background-color: transparent;
+  border: none;
+  text-align: right;
+  color: black;
+}
+
+.profile-page__user-email:focus {
+  outline: 2px solid #3456f3;
+  border-radius: 3px;
+}
+
+.profile-page__error {
+  position: absolute;
+  max-width: 410px;
+  width: 100%;
+  top: 560px;
+  text-align: center;
+  color: #ee3465;
 }
 
 .profile-page__edit-btn {
-  display: block;
+  display: none;
   margin: auto;
   background-color: transparent;
   cursor: pointer;
@@ -75,8 +104,12 @@
   margin-bottom: 12px;
 }
 
-.profile-page__exit-btn {
+.profile-page__edit-btn_type_active {
   display: block;
+}
+
+.profile-page__exit-btn {
+  display: none;
   margin: auto;
   background-color: transparent;
   border: none;
@@ -88,6 +121,33 @@
   color: #ee3465;
   text-decoration: none;
   text-align: center;
+}
+
+.profile-page__exit-btn_type_active {
+  display: block;
+}
+
+.profile-page__submit-btn {
+  display: none;
+  max-width: 410px;
+  width: 100%;
+  margin: auto;
+  padding: 13px 0;
+  background-color: #3456f3;
+  border-radius: 3px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-page__submit-btn_type_active {
+  display: block;
+}
+
+.profile-page__submit-btn:disabled {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
+  pointer-events: none;
 }
 
 @media screen and (max-width: 768px) {
