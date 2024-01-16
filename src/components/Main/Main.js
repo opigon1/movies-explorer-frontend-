@@ -14,7 +14,6 @@ function Main({ isLogged }) {
     <>
       <Header locarion='locarion_lending' isLogged={isLogged}>
         <Navigation isLogged={isLogged} />
-        <button className='header__burger' type='button'></button>
       </Header>
       <Promo />
       <main className='main'>

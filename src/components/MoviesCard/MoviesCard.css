@@ -22,6 +22,7 @@
 
 .movie-card__title {
   font-size: 13px;
+  max-width: 210px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;

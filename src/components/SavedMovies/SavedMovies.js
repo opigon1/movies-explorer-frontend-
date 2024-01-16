@@ -5,37 +5,56 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
 import { mainApi } from '../../utils/MainApi';
+import { filterMovies, findOnlyShortMovies } from '../../utils/moviesFilters';
 
 function SavedMovies({ isLogged, savedMovies, setSavedMovies }) {
   const [renderedMovies, setRendererMovies] = React.useState(savedMovies);
+  const [checkShortFilm, setCheckShortFilms] = React.useState(false);
 
   React.useEffect(() => {
-    setRendererMovies(renderedMovies);
-  }, [renderedMovies]);
+    const savedMoviesStorage = JSON.parse(localStorage.getItem('savedMovies'));
+    setRendererMovies(savedMoviesStorage || []);
+  }, []);
+
+  const submitHandler = (shortFilm, searchQuery) => {
+    const filteredMovies = filterMovies(searchQuery, savedMovies);
+    const filteredShortMovies = findOnlyShortMovies(filteredMovies);
+
+    const moviesToDisplay = shortFilm ? filteredShortMovies : filteredMovies;
+
+    setRendererMovies(moviesToDisplay);
+  };
 
   const deleteMovie = (movieId, likeHandler) => {
     mainApi.deleteMovie(movieId).then(() => {
       likeHandler(false);
-      setSavedMovies((state) => state.filter((m) => m._id !== movieId));
-      setRendererMovies((state) => state.filter((m) => m._id !== movieId));
+      const updatedMovies = savedMovies.filter((m) => m._id !== movieId);
+      setSavedMovies(updatedMovies);
+      setRendererMovies(updatedMovies);
+      localStorage.setItem('savedMovies', JSON.stringify(updatedMovies));
     });
   };
 
   React.useEffect(() => {
-    setRendererMovies(savedMovies);
-  }, [savedMovies, setRendererMovies, renderedMovies]);
+    const moviesToDisplay = checkShortFilm
+      ? findOnlyShortMovies(savedMovies)
+      : savedMovies;
+
+    setRendererMovies(moviesToDisplay);
+    localStorage.setItem('savedMovies', JSON.stringify(moviesToDisplay));
+  }, [checkShortFilm, savedMovies]);
 
   return (
     <>
       <Header locarion={'location_movies'} isLogged={isLogged}>
         <Navigation location={'location_movies'} isLogged={isLogged} />
-        <button
-          className='header__burger header__burger_type_dark'
-          type='button'
-        ></button>
       </Header>
       <main className='saved-movies'>
-        <SearchForm />
+        <SearchForm
+          submitHandler={submitHandler}
+          checkbox={checkShortFilm}
+          setCheckbox={setCheckShortFilms}
+        />
         {renderedMovies && (
           <MoviesCardList
             allMovies={renderedMovies}
@@ -43,7 +62,9 @@ function SavedMovies({ isLogged, savedMovies, setSavedMovies }) {
             savedMovies={savedMovies}
           />
         )}
-        {savedMovies.length === 0 && <p>Ничего не найдено</p>}
+        {savedMovies.length === 0 && (
+          <p className='movies-page__error'>Ничего не найдено</p>
+        )}
       </main>
       <Footer />
     </>

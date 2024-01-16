@@ -60,9 +60,13 @@ function MoviesCard({ savedMovies, onDeleteMovie, onSaveMovie, ...props }) {
         )}
         {moviesFilm && (
           <button
-            onClick={handleSaveMovie}
+            onClick={isSaved ? handleDelete : handleSaveMovie}
             type='button'
-            className='movie-card__save-btn movie-card__save-btn_type_active'
+            className={
+              isSaved
+                ? 'movie-card__save-btn movie-card__save-btn_type_active'
+                : 'movie-card__save-btn'
+            }
           ></button>
         )}
       </div>

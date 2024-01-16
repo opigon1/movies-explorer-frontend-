@@ -53,8 +53,11 @@
 }
 
 .search__error {
+  top: 190px;
+  left: auto;
+  position: absolute;
   color: #ff6838;
-  padding-bottom: 50px;
+  font-size: 12px;
 }
 
 .search__button {
@@ -76,14 +79,16 @@
     padding-bottom: 51px;
     max-width: 708px;
   }
+
+  .search__error {
+    top: 210px;
+    left: 20px;
+    font-size: 10px;
+  }
 }
 
 @media screen and (max-width: 450px) {
   .search__form {
     margin-bottom: 47px;
-  }
-
-  .search__error {
-    font-size: 12px;
   }
 }

@@ -88,6 +88,7 @@ function Profile({ onSignout, isLogged }) {
       .then(() => {
         onSignout();
         navigate('/');
+        localStorage.clear();
       })
       .catch((err) => {
         console.log(err);
@@ -98,10 +99,6 @@ function Profile({ onSignout, isLogged }) {
     <>
       <Header locarion={'location_movies'} isLogged={isLogged}>
         <Navigation location={'location_movies'} isLogged={isLogged} />
-        <button
-          className='header__burger header__burger_type_dark'
-          type='button'
-        ></button>
       </Header>
       <main className='profile-page'>
         <h1 className='profile-page__title'>Привет, {watch('name')}!</h1>

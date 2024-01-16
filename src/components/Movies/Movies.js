@@ -15,8 +15,24 @@ function Movies({ isLogged, savedMovies, setSavedMovies }) {
   const [isLoading, setIsLoading] = React.useState(false);
   const [visibleMovies, setVisibleMovies] = React.useState(16);
   const [checkShortFilm, setCheckShortFilms] = React.useState(false);
+  const [lastSearchQuery, setLastSearchQuery] = React.useState('');
   const screenWidth = window.innerWidth;
   const queryData = localStorage.getItem('queryData');
+
+  useEffect(() => {
+    if (queryData) {
+      setLastSearchQuery(JSON.parse(queryData)?.searchQuery);
+      setCheckShortFilms(JSON.parse(queryData)?.shortFilm);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (queryData) {
+      const newQueryData = JSON.parse(queryData);
+      newQueryData.shortFilm = checkShortFilm;
+      localStorage.setItem('queryData', JSON.stringify(newQueryData));
+    }
+  }, [checkShortFilm, queryData]);
 
   useEffect(() => {
     const handleResizeWithTimeout = () => {
@@ -24,6 +40,7 @@ function Movies({ isLogged, savedMovies, setSavedMovies }) {
         handleResize();
       }, 200);
     };
+
     handleResizeWithTimeout();
     window.addEventListener('resize', handleResizeWithTimeout);
     return () => {
@@ -37,19 +54,6 @@ function Movies({ isLogged, savedMovies, setSavedMovies }) {
   React.useEffect(() => {
     checkShortFilm ? setMovie(filteredShortMovies) : setMovie(filteredMovies);
   }, [checkShortFilm]);
-
-  // const handleCheckbox = (isOnlyShortFilms) => {
-  //   if (queryData !== null) {
-  //     const moviesFromStorage = JSON.parse(queryData).filteredMovies;
-
-  //     if (isOnlyShortFilms) {
-  //       setMovie(moviesFromStorage);
-  //     } else {
-  //       setMovie(findOnlyShortMovies(moviesFromStorage));
-  //     }
-  //   }
-  //   return;
-  // };
 
   const handleSaveMovie = (movie, likeHandler) => {
     mainApi
@@ -82,10 +86,10 @@ function Movies({ isLogged, savedMovies, setSavedMovies }) {
       filteredShortMovies = findOnlyShortMovies(filteredMovies);
 
       const queryData = {
-        allMovies,
-        searchQuery: searchQuery,
+        searchQuery,
         filteredMovies,
         filteredShortMovies,
+        shortFilm,
       };
 
       localStorage.setItem('queryData', JSON.stringify(queryData));
@@ -112,22 +116,19 @@ function Movies({ isLogged, savedMovies, setSavedMovies }) {
     <>
       <Header locarion={'location_movies'} isLogged={isLogged}>
         <Navigation location={'location_movies'} isLogged={isLogged} />
-        <button
-          className='header__burger header__burger_type_dark'
-          type='button'
-        ></button>
       </Header>
       <main className='movies-page'>
         <SearchForm
           submitHandler={submitHandler}
           checkbox={checkShortFilm}
           setCheckbox={setCheckShortFilms}
+          lastSearchQuery={lastSearchQuery}
         />
         {isLoading ? (
           <Preloader />
         ) : (
           <MoviesCardList
-            allMovies={movie}
+            allMovies={movie.slice(0, visibleMovies)}
             onSaveMovie={handleSaveMovie}
             onDeleteMovie={handkeDeleteMovie}
             savedMovies={savedMovies}
@@ -145,6 +146,9 @@ function Movies({ isLogged, savedMovies, setSavedMovies }) {
               </button>
             )}
           </MoviesCardList>
+        )}
+        {movie.length === 0 && (
+          <p className='movies-page__error'>Ничего не найдено</p>
         )}
       </main>
       <Footer />

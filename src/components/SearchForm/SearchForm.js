@@ -3,18 +3,21 @@ import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import searchBtn from '../../images/search-btn.svg';
 
-function SearchForm({ submitHandler, checkbox, setCheckbox }) {
+function SearchForm({ submitHandler, checkbox, setCheckbox, lastSearchQuery }) {
   const {
     methods,
     formState: { errors },
     register,
     handleSubmit,
     watch,
-    setError,
     setValue,
   } = useForm({
     mode: 'onSubmit',
   });
+
+  React.useEffect(() => {
+    setValue('search', lastSearchQuery);
+  }, [setValue, lastSearchQuery]);
 
   const onClickCheckbox = () => setCheckbox(!checkbox);
 
@@ -49,8 +52,7 @@ function SearchForm({ submitHandler, checkbox, setCheckbox }) {
           <button
             className='search__button'
             type='submit'
-            onClick={onSubmit}
-            // onClick={handleSubmit(() => handleFilterMovies(watch('search')))}
+            onClick={handleSubmit(onSubmit)}
           >
             <img className='search__img' src={searchBtn} alt='Кнопка поиска' />
           </button>
@@ -69,13 +71,12 @@ function SearchForm({ submitHandler, checkbox, setCheckbox }) {
           />
           <span className='filter__visible-checkbox'>Короткометражки</span>
         </label>
+        <span className='search__error'>
+          {errors.search?.type === 'required' && 'Нужно ввести ключевое слово'}
+          {errors?.root?.serverError?.type === 400 &&
+            'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'}
+        </span>
       </form>
-      <span className='search__error'>
-        {errors.search?.type === 'required' && 'Нужно ввести ключевое слово'}
-        {errors.search?.type === 'custom' && 'Ничего не найдено'}
-        {errors?.root?.serverError?.type === 400 &&
-          'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'}
-      </span>
     </FormProvider>
   );
 }

@@ -40,9 +40,10 @@ function App() {
     mainApi
       .getSavedMovies()
       .then((moviesData) => {
-        const savedMovieOwner = moviesData.data.filter(
+        const savedMovieOwner = moviesData.filter(
           (movie) => movie.owner === currentUser?.data?._id
         );
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovieOwner));
         setSavedMovies(savedMovieOwner);
       })
       .catch((err) => {
