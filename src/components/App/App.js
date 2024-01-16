@@ -11,10 +11,12 @@ import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { checkToken } from '../../utils/auth';
 import { CurrentUserContext } from '../../context/currentUserContext';
 import { mainApi } from '../../utils/MainApi';
+import { moviesApi } from '../../utils/MoviesApi';
 
 function App() {
   const [isLogged, setIsLogged] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
+  const [savedMovies, setSavedMovies] = React.useState([]);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -32,7 +34,21 @@ function App() {
         setCurrentUser(res);
       });
     }
-  }, [isLogged, navigate]);
+  }, [isLogged]);
+
+  React.useEffect(() => {
+    mainApi
+      .getSavedMovies()
+      .then((moviesData) => {
+        const savedMovieOwner = moviesData.data.filter(
+          (movie) => movie.owner === currentUser?.data?._id
+        );
+        setSavedMovies(savedMovieOwner);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [currentUser, setSavedMovies, isLogged]);
 
   function handleLogin() {
     setIsLogged(true);
@@ -48,11 +64,25 @@ function App() {
         <Route path='/' element={<Main isLogged={isLogged} />} />
         <Route
           path='/movies'
-          element={<ProtectedRoute element={Movies} isLogged={isLogged} />}
+          element={
+            <ProtectedRoute
+              element={Movies}
+              isLogged={isLogged}
+              setSavedMovies={setSavedMovies}
+              savedMovies={savedMovies}
+            />
+          }
         />
         <Route
           path='/saved-movies'
-          element={<ProtectedRoute element={SavedMovies} isLogged={isLogged} />}
+          element={
+            <ProtectedRoute
+              element={SavedMovies}
+              isLogged={isLogged}
+              setSavedMovies={setSavedMovies}
+              savedMovies={savedMovies}
+            />
+          }
         />
         <Route
           path='/profile'

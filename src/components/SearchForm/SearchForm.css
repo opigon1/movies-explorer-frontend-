@@ -3,7 +3,7 @@
   flex-direction: column;
   max-width: 1140px;
   width: 100%;
-  margin: 57px auto 80px;
+  margin: 57px auto 33px;
   border-bottom: 1px solid #e8e8e8;
   padding-bottom: 68px;
 }
@@ -52,6 +52,11 @@
   line-height: 17px;
 }
 
+.search__error {
+  color: #ff6838;
+  padding-bottom: 50px;
+}
+
 .search__button {
   background-color: #ff6838;
   border: 0;
@@ -76,5 +81,9 @@
 @media screen and (max-width: 450px) {
   .search__form {
     margin-bottom: 47px;
+  }
+
+  .search__error {
+    font-size: 12px;
   }
 }

@@ -17,9 +17,38 @@ class MainApi {
     }
   }
 
-  // getAllInfo() {
-  //   return Promise.all([this.getCards(), this.getUserInfo()]);
-  // }
+  addMovie(movieData) {
+    return fetch(`${this.#url}/movies`, {
+      credentials: 'include',
+      headers: this.#headers,
+      method: 'POST',
+      body: JSON.stringify({
+        ...movieData,
+      }),
+    }).then((res) => {
+      return this.#handleResponse(res);
+    });
+  }
+
+  deleteMovie(id) {
+    return fetch(`${this.#url}movies/${id}`, {
+      credentials: 'include',
+      headers: this.#headers,
+      method: 'DELETE',
+    }).then((res) => {
+      return this.#handleResponse(res);
+    });
+  }
+
+  getSavedMovies() {
+    return fetch(`${this.#url}/movies`, {
+      credentials: 'include',
+      headers: this.#headers,
+      method: 'GET',
+    }).then((res) => {
+      return this.#handleResponse(res);
+    });
+  }
 
   getUserInfo() {
     return fetch(`${this.#url}/users/me`, {
@@ -30,16 +59,6 @@ class MainApi {
       return this.#handleResponse(res);
     });
   }
-
-  // getMovies() {
-  //   return fetch(`${this.#url}movies`, {
-  //     credentials: 'include',
-  //     headers: this.#headers,
-  //     method: 'GET',
-  //   }).then((res) => {
-  //     return this.#handleResponse(res);
-  //   });
-  // }
 
   deleteMovie(id) {
     return fetch(`${this.#url}/movies/${id}`, {

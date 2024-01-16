@@ -1,10 +1,25 @@
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ children }) {
+function MoviesCardList({
+  allMovies,
+  children,
+  onSaveMovie,
+  savedMovies,
+  onDeleteMovie,
+}) {
   return (
     <section className='movies'>
       <ul className='movies-list'>
-        <MoviesCard />
+        {Array.isArray(allMovies) &&
+          allMovies.map((movie) => (
+            <MoviesCard
+              {...movie}
+              key={movie.id || movie._id}
+              onSaveMovie={onSaveMovie}
+              savedMovies={savedMovies}
+              onDeleteMovie={onDeleteMovie}
+            />
+          ))}
       </ul>
       {children}
     </section>

@@ -11,6 +11,7 @@ function Login({ onLogin }) {
     formState: { errors, isValid },
     handleSubmit,
     register,
+    setError,
   } = useForm({ mode: 'onChange' });
 
   const onSubmit = handleSubmit((data) => {
@@ -20,7 +21,12 @@ function Login({ onLogin }) {
         onLogin();
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
+        if (err === 'Ошибка 401') {
+          setError('root.serverError', {
+            type: err,
+          });
+        }
       });
   });
 
@@ -52,9 +58,10 @@ function Login({ onLogin }) {
               })}
             />
             <span className='login__error'>
-              {' '}
               {errors.email?.type === 'required' && 'Это поле обязательное'}
               {errors.email?.type === 'pattern' && 'Неверный формат Email'}
+              {errors?.root?.serverError?.type === 'Ошибка 401' &&
+                'Передан неккоректный email.'}
             </span>
           </label>
           <label className='login__label' htmlFor='password'>

@@ -164,6 +164,10 @@
   .profile-page__email-section {
     margin-bottom: 207px;
   }
+  .profile-page__error {
+    top: 670px;
+    font-size: 14px;
+  }
 }
 
 @media screen and (max-width: 450px) {
@@ -178,5 +182,10 @@
 
   .profile-page__email-section {
     margin-bottom: 379px;
+  }
+
+  .profile-page__error {
+    font-size: 10px;
+    max-width: 260px;
   }
 }

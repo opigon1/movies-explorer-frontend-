@@ -5,3 +5,15 @@ export const apiConfig = {
     'content-type': 'application/json',
   },
 };
+
+export const moviesConfig = {
+  url: 'https://api.nomoreparties.co/beatfilm-movies',
+  headers: {
+    'content-type': 'application/json',
+  },
+};
+
+export const getOneIdByAnother = (id, array) => {
+  const searchItem = array.find((movie) => movie.movieId === id);
+  return searchItem._id;
+};

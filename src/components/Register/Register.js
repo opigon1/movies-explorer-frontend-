@@ -12,10 +12,10 @@ function Register({ onLogin }) {
     formState: { errors, isValid },
     handleSubmit,
     register,
+    setError,
   } = useForm({ mode: 'onChange' });
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
     registerApi(data)
       .then(() => {
         authorize(data)
@@ -23,9 +23,23 @@ function Register({ onLogin }) {
             onLogin();
             navigate('/');
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            console.log(err);
+            if (err === 'Ошибка 409') {
+              setError('root.serverError', {
+                type: err,
+              });
+            }
+          });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.error(err);
+        if (err === 'Ошибка 409') {
+          setError('root.serverError', {
+            type: err,
+          });
+        }
+      });
   });
   return (
     <main className='register'>
@@ -77,6 +91,8 @@ function Register({ onLogin }) {
             <span className='register__error'>
               {errors.email?.type === 'required' && 'Это поле обязательное'}
               {errors.email?.type === 'pattern' && 'Неверный формат Email'}
+              {errors?.root?.serverError?.type === 'Ошибка 409' &&
+                'Пользователь с таким email уже существует.'}
             </span>
           </label>
           <label className='register__label' htmlFor='password'>
@@ -101,7 +117,7 @@ function Register({ onLogin }) {
             className='register__submit'
             type='submit'
             onClick={onSubmit}
-            disabled={!isValid}
+            // disabled={!isValid}
           >
             Зарегистрироваться
           </button>
