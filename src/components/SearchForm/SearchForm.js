@@ -1,9 +1,10 @@
-// SearchForm.js
 import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import searchBtn from '../../images/search-btn.svg';
+import { BAD_REQUEST } from '../../utils/constants';
 
 function SearchForm({ submitHandler, checkbox, setCheckbox, lastSearchQuery }) {
+  const [isLoading, setIsLoading] = React.useState(false);
   const {
     methods,
     formState: { errors },
@@ -11,6 +12,7 @@ function SearchForm({ submitHandler, checkbox, setCheckbox, lastSearchQuery }) {
     handleSubmit,
     watch,
     setValue,
+    setError,
   } = useForm({
     mode: 'onSubmit',
   });
@@ -22,7 +24,19 @@ function SearchForm({ submitHandler, checkbox, setCheckbox, lastSearchQuery }) {
   const onClickCheckbox = () => setCheckbox(!checkbox);
 
   const onSubmit = async () => {
-    submitHandler(checkbox, watch('search'));
+    setIsLoading(true);
+    try {
+      await submitHandler(checkbox, watch('search'));
+    } catch (err) {
+      console.error(err);
+      if (err === BAD_REQUEST) {
+        setError('root.serverError', {
+          type: err,
+        });
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -52,6 +66,7 @@ function SearchForm({ submitHandler, checkbox, setCheckbox, lastSearchQuery }) {
           <button
             className='search__button'
             type='submit'
+            disabled={isLoading}
             onClick={handleSubmit(onSubmit)}
           >
             <img className='search__img' src={searchBtn} alt='Кнопка поиска' />
@@ -73,7 +88,7 @@ function SearchForm({ submitHandler, checkbox, setCheckbox, lastSearchQuery }) {
         </label>
         <span className='search__error'>
           {errors.search?.type === 'required' && 'Нужно ввести ключевое слово'}
-          {errors?.root?.serverError?.type === 400 &&
+          {errors?.root?.serverError?.type === BAD_REQUEST &&
             'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'}
         </span>
       </form>

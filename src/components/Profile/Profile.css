@@ -150,6 +150,16 @@
   pointer-events: none;
 }
 
+.profile-page__success {
+  color: #2be080;
+  position: absolute;
+  max-width: 410px;
+  width: 100%;
+  top: 460px;
+  font-size: 16px;
+  text-align: center;
+}
+
 @media screen and (max-width: 768px) {
   .profile-page {
     max-width: 410px;
@@ -167,6 +177,11 @@
   .profile-page__error {
     top: 670px;
     font-size: 14px;
+  }
+
+  .profile-page__success {
+    top: 570px;
+    font-size: 15px;
   }
 }
 
@@ -187,5 +202,10 @@
   .profile-page__error {
     font-size: 10px;
     max-width: 260px;
+  }
+
+  .profile-page__success {
+    max-width: 260px;
+    top: 500px;
   }
 }

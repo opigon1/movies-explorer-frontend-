@@ -6,19 +6,22 @@ import Navigation from '../Navigation/Navigation';
 import { signout } from '../../utils/auth';
 import { CurrentUserContext } from '../../context/currentUserContext';
 import { mainApi } from '../../utils/MainApi';
+import { CONFLICT, BAD_REQUEST } from '../../utils/constants';
 
 function Profile({ onSignout, isLogged }) {
+  const [isLoading, setIsLoading] = React.useState(false);
   const [editButton, setEditButton] = React.useState(true);
   const [submitButton, setSubmitButton] = React.useState(false);
   const [isValidButton, setIsValidButton] = React.useState(true);
+  const [isSuccess, setIsSuccess] = React.useState(false);
   const navigate = useNavigate();
   const currentUser = React.useContext(CurrentUserContext);
 
   const methods = useForm({
     mode: 'onChange',
     defaultValues: {
-      name: currentUser.data.name,
-      email: currentUser.data.email,
+      name: currentUser.data?.name,
+      email: currentUser.data?.email,
     },
   });
 
@@ -26,7 +29,6 @@ function Profile({ onSignout, isLogged }) {
     handleSubmit,
     register,
     watch,
-    // setValue,
     setError,
     formState: { errors, isValid },
   } = methods;
@@ -37,18 +39,12 @@ function Profile({ onSignout, isLogged }) {
 
   React.useEffect(() => {
     if (
-      currentUser.data.name === watch('name') &&
-      currentUser.data.email === watch('email')
+      currentUser.data?.name === watch('name') &&
+      currentUser.data?.email === watch('email')
     ) {
       setIsValidButton(false);
     } else setIsValidButton(true);
   }, [currentUser.data, watch, getTargetValue]);
-
-  // React.useEffect(() => {
-  //   setValue('name', currentUser.data.name);
-  //   setValue('email', currentUser.data.email);
-  //   console.log(currentUser.data.name);
-  // }, [currentUser, setValue]);
 
   const changeEditButton = () => {
     setEditButton(false);
@@ -56,30 +52,39 @@ function Profile({ onSignout, isLogged }) {
   };
 
   const onSubmit = (data) => {
+    setIsLoading(true);
     mainApi
       .editUserInfo(data)
       .then(() => {
         mainApi.getUserInfo().then((res) => {
-          currentUser.data.name = res.data.name;
-          currentUser.data.email = res.data.email;
+          currentUser.data.name = res.data?.name;
+          currentUser.data.email = res.data?.email;
         });
         setEditButton(true);
         setSubmitButton(false);
         setIsValidButton(true);
+        setIsSuccess(true);
+
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 3000);
       })
       .catch((err) => {
         console.error('Error:', err);
-        if (err === 409) {
+        if (err === CONFLICT) {
           setError('root.serverError', {
             type: err,
           });
         }
-        if (err === 400) {
+        if (err === BAD_REQUEST) {
           setError('root.serverError', {
             type: err,
           });
         }
         setIsValidButton(false);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -132,12 +137,12 @@ function Profile({ onSignout, isLogged }) {
               />
             </div>
             <span className='profile-page__error'>
-              {errors?.root?.serverError?.type === 409 &&
+              {errors?.root?.serverError?.type === CONFLICT &&
                 'Пользователь с таким email уже существует.'}
-              {errors?.root?.serverError?.type === 400 &&
+              {errors?.root?.serverError?.type === BAD_REQUEST &&
                 'При обновлении профиля произошла ошибка.'}
             </span>
-
+            {isSuccess && <p className='profile-page__success'>Успешно!</p>}
             <button
               className={
                 editButton
@@ -146,9 +151,9 @@ function Profile({ onSignout, isLogged }) {
               }
               type='button'
               onClick={handleSubmit(onSubmit)}
-              disabled={!isValidButton || !isValid}
+              disabled={!isValidButton || !isValid || isLoading}
             >
-              Сохранить
+              {isLoading ? 'Сохранение...' : 'Сохранить'}
             </button>
             <button
               className={

@@ -8,12 +8,19 @@ import Preloader from '../Preloader/Preloader';
 import { filterMovies, findOnlyShortMovies } from '../../utils/moviesFilters';
 import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
-import { getOneIdByAnother } from '../../utils/constants';
+import { getOneIdByAnother } from '../../utils/getOneIdByAnother';
+import {
+  INITIAL_VISIBLE_MOVIES,
+  MOBILE_SCREEN_WIDTH,
+  TABLET_SCREEN_WIDTH,
+} from '../../utils/constants';
 
 function Movies({ isLogged, savedMovies, setSavedMovies }) {
   const [movie, setMovie] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [visibleMovies, setVisibleMovies] = React.useState(16);
+  const [visibleMovies, setVisibleMovies] = React.useState(
+    INITIAL_VISIBLE_MOVIES
+  );
   const [checkShortFilm, setCheckShortFilms] = React.useState(false);
   const [lastSearchQuery, setLastSearchQuery] = React.useState('');
   const screenWidth = window.innerWidth;
@@ -81,7 +88,10 @@ function Movies({ isLogged, savedMovies, setSavedMovies }) {
   const submitHandler = async (shortFilm, searchQuery) => {
     try {
       setIsLoading(true);
-      const allMovies = await moviesApi.getMovies().then((res) => res);
+      const allMovies = await moviesApi
+        .getMovies()
+        .then((res) => res)
+        .catch((err) => console.log(err));
       filteredMovies = await filterMovies(searchQuery, allMovies);
       filteredShortMovies = findOnlyShortMovies(filteredMovies);
 
@@ -104,12 +114,12 @@ function Movies({ isLogged, savedMovies, setSavedMovies }) {
   };
 
   const handleResize = () => {
-    if (screenWidth <= 480) {
+    if (screenWidth <= MOBILE_SCREEN_WIDTH) {
       setVisibleMovies(5);
-    } else if (screenWidth <= 768) {
-      setVisibleMovies(16);
+    } else if (screenWidth <= TABLET_SCREEN_WIDTH) {
+      setVisibleMovies(INITIAL_VISIBLE_MOVIES);
     } else {
-      setVisibleMovies(16);
+      setVisibleMovies(INITIAL_VISIBLE_MOVIES);
     }
   };
   return (
@@ -138,7 +148,8 @@ function Movies({ isLogged, savedMovies, setSavedMovies }) {
                 className='movies-list__more-btn'
                 onClick={() =>
                   setVisibleMovies(
-                    (prev) => prev + (screenWidth <= 480 ? 1 : 4)
+                    (prev) =>
+                      prev + (screenWidth <= MOBILE_SCREEN_WIDTH ? 1 : 4)
                   )
                 }
               >

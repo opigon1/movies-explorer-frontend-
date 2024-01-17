@@ -13,7 +13,8 @@ export const moviesConfig = {
   },
 };
 
-export const getOneIdByAnother = (id, array) => {
-  const searchItem = array.find((movie) => movie.movieId === id);
-  return searchItem._id;
-};
+export const INITIAL_VISIBLE_MOVIES = 16;
+export const MOBILE_SCREEN_WIDTH = 480;
+export const TABLET_SCREEN_WIDTH = 768;
+export const CONFLICT = 409;
+export const BAD_REQUEST = 400;

@@ -5,6 +5,7 @@ import React from 'react';
 import { authorize } from '../../utils/auth';
 
 function Login({ onLogin }) {
+  const [isLoading, setIsLoading] = React.useState(false);
   const navigate = useNavigate();
   const {
     methods,
@@ -12,12 +13,12 @@ function Login({ onLogin }) {
     handleSubmit,
     register,
     setError,
-  } = useForm({ mode: 'onChange' });
+  } = useForm({ mode: 'all' });
 
   const onSubmit = handleSubmit((data) => {
+    setIsLoading(true);
     authorize(data)
       .then(() => {
-        navigate('/');
         onLogin();
       })
       .catch((err) => {
@@ -27,9 +28,11 @@ function Login({ onLogin }) {
             type: err,
           });
         }
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   });
-
   return (
     <main className='login'>
       <Link to={'/'}>
@@ -87,9 +90,9 @@ function Login({ onLogin }) {
             className='login__submit'
             type='submit'
             onClick={onSubmit}
-            disabled={!isValid}
+            disabled={!isValid || isLoading}
           >
-            Войти
+            {isLoading ? 'Загрузка...' : 'Войти'}
           </button>
         </form>
       </FormProvider>

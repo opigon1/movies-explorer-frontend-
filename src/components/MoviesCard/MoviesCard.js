@@ -7,7 +7,7 @@ function MoviesCard({ savedMovies, onDeleteMovie, onSaveMovie, ...props }) {
   const location = useLocation();
   const savedMoviesFilm = location.pathname === '/saved-movies';
   const moviesFilm = location.pathname === '/movies';
-
+  console.log(savedMovies);
   useEffect(() => {
     if (savedMovies.some((movie) => movie.movieId === props.id)) {
       setIsSaved(true);

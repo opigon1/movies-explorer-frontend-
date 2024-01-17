@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
 import logo from '../../images/logo.svg';
 import React from 'react';
@@ -6,40 +6,33 @@ import { registerApi } from '../../utils/auth';
 import { authorize } from '../../utils/auth';
 
 function Register({ onLogin }) {
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = React.useState(false);
   const {
     methods,
     formState: { errors, isValid },
     handleSubmit,
     register,
     setError,
-  } = useForm({ mode: 'onChange' });
+  } = useForm({ mode: 'all' });
 
-  const onSubmit = handleSubmit((data) => {
-    registerApi(data)
-      .then(() => {
-        authorize(data)
-          .then(() => {
-            onLogin();
-            navigate('/');
-          })
-          .catch((err) => {
-            console.log(err);
-            if (err === 'Ошибка 409') {
-              setError('root.serverError', {
-                type: err,
-              });
-            }
-          });
-      })
-      .catch((err) => {
-        console.error(err);
-        if (err === 'Ошибка 409') {
-          setError('root.serverError', {
-            type: err,
-          });
-        }
-      });
+  const onSubmit = handleSubmit(async (data) => {
+    setIsLoading(true);
+
+    try {
+      await registerApi(data);
+      await authorize(data);
+      onLogin();
+    } catch (err) {
+      console.error(err);
+
+      if (err === 'Ошибка 409') {
+        setError('root.serverError', {
+          type: err,
+        });
+      }
+    } finally {
+      setIsLoading(false);
+    }
   });
   return (
     <main className='register'>
@@ -117,9 +110,9 @@ function Register({ onLogin }) {
             className='register__submit'
             type='submit'
             onClick={onSubmit}
-            // disabled={!isValid}
+            disabled={!isValid || isLoading}
           >
-            Зарегистрироваться
+            {isLoading ? 'Загрузка...' : 'Зарегистрироваться'}
           </button>
         </form>
       </FormProvider>

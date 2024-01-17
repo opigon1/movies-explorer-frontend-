@@ -38,6 +38,9 @@
   font-weight: 400;
   line-height: normal;
   text-decoration: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 400px) {

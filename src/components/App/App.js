@@ -1,5 +1,11 @@
 import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -18,38 +24,34 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [savedMovies, setSavedMovies] = React.useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
 
   React.useEffect(() => {
     checkToken()
       .then(() => {
         setIsLogged(true);
-        navigate('/');
+        if (
+          location.pathname === '/signup' ||
+          location.pathname === '/signin'
+        ) {
+          navigate('/movies');
+        } else {
+          navigate(location.pathname);
+        }
       })
       .catch((err) => console.log(err));
   }, [isLogged]);
 
   React.useEffect(() => {
     if (isLogged) {
-      mainApi.getUserInfo().then((res) => {
-        setCurrentUser(res);
-      });
+      mainApi
+        .getUserInfo()
+        .then((res) => {
+          setCurrentUser(res);
+        })
+        .catch((err) => console.log(err));
     }
   }, [isLogged]);
-
-  React.useEffect(() => {
-    mainApi
-      .getSavedMovies()
-      .then((moviesData) => {
-        const savedMovieOwner = moviesData.filter(
-          (movie) => movie.owner === currentUser?.data?._id
-        );
-        localStorage.setItem('savedMovies', JSON.stringify(savedMovieOwner));
-        setSavedMovies(savedMovieOwner);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, [currentUser, setSavedMovies, isLogged]);
 
   function handleLogin() {
     setIsLogged(true);
