@@ -1,8 +1,14 @@
 .movies-page {
   display: flex;
+  flex: 1 1;
+  box-sizing: border-box;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
   padding: 0 10px;
   margin-bottom: 40px;
+}
+
+.movies-page__error {
+  color: #ff6838;
+  font-size: 14px;
 }

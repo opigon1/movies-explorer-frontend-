@@ -1,0 +1,104 @@
+.burger {
+  visibility: hidden;
+  right: auto;
+  position: fixed;
+  right: 0;
+  background-color: #fff;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1000;
+}
+
+.burger__cover {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.25s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.burger__nav-list {
+  margin-top: 160px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  max-width: 520px;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.burger__list-item_active {
+  border-bottom: 2px solid black;
+}
+
+.burger__close-btn {
+  display: none;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  background-image: url(../../images/exit__burger.svg);
+  background-position: right;
+  background-repeat: no-repeat;
+  transition: all linear 0.2s;
+  margin-top: 20px;
+}
+
+.burger__list-item {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: black;
+  text-decoration: none;
+}
+
+.burger__account {
+  max-width: 520px;
+  display: inline-block;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  color: black;
+  text-decoration: none;
+  padding: 8px 20px;
+  background-color: #f9f9f9;
+  border-radius: 20px;
+  margin: 0 auto;
+  margin-top: 450px;
+  margin-left: 38%;
+}
+
+.burger_type_active {
+  visibility: visible;
+  max-width: 520px;
+  width: 100%;
+}
+
+.burger__close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: auto;
+  width: 97%;
+  height: 30px;
+}
+
+.burger__cover_type_active {
+  visibility: visible;
+  opacity: 1;
+}

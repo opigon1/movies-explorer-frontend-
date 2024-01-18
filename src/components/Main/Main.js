@@ -9,15 +9,11 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
 
-function Main() {
+function Main({ isLogged }) {
   return (
     <>
-      <Header locarion='locarion_lending'>
-        <Navigation />
-        <Link className='header__account' to='/profile'>
-          Аккаунт
-        </Link>
-        <button className='header__burger' type='button'></button>
+      <Header locarion='locarion_lending' isLogged={isLogged}>
+        <Navigation isLogged={isLogged} />
       </Header>
       <Promo />
       <main className='main'>
